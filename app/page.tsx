@@ -12,7 +12,7 @@ export default function Page() {
         Платформа для изучения Английского языка
       </h2>
       <div>
-        <Link href={"/cards"}>Карточки по английскому языку</Link>
+        <Link href={"/decks"}>Карточки по английскому языку</Link>
       </div>
     </main>
   );

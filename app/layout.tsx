@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="w-[100vw] h-[100vh] pt-[150px]   flex justify-center  align-middle bg-success-400 dark:bg-accent ">
+        <div className="w-[100vw] h-[100vh] pt-[150px]   flex justify-center  align-middle bg-blue-200 dark:bg-accent ">
           <div className="max-w-[1280px]  w-[100%] h-[100%]"> {children}</div>
           <ThemeToggle />
         </div>
