@@ -1,26 +1,33 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Переопределяем dark variant для ручного управления */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* 1. Основной цвет (фирменный) */
+  --color-primary-100: oklch(0.9 0.1 185); /* Светлый аква */
+  --color-primary-400: oklch(0.75 0.14 185); /* Основной аква */
+  --color-primary-600: oklch(0.6 0.16 185); /* Темный аква */
+
+  /* 2. Акцентные цвета */
+  --color-accent-400: oklch(0.8 0.18 25); /* Тёплый коралловый */
+  --color-success-400: oklch(0.8 0.12 150); /* Мягкий зелёный */
+
+  /* 3. Нейтральные оттенки */
+  --color-gray-50: oklch(0.98 0.01 250); /* Почти белый */
+  --color-gray-200: oklch(0.9 0.02 250); /* Светло-серый */
+  --color-gray-700: oklch(0.35 0.03 250); /* Тёмно-серый */
+  --color-gray-900: oklch(0.15 0.02 250); /* Почти чёрный */
+
+  /* 4. Тёмная тема (переопределения) */
+  --color-dark-primary-400: oklch(0.78 0.16 185);
+  --color-dark-gray-50: oklch(0.12 0.01 250);
+  --color-dark-gray-900: oklch(0.95 0.01 250);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.dark {
+  --color-bg: var(--color-dark-gray-50);
+  --color-text: var(--color-dark-gray-900);
+  --color-surface: oklch(0.2 0.02 250);
+  --color-primary-400: var(--color-dark-primary-400);
 }
