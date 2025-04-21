@@ -128,22 +128,16 @@ export default function Page() {
   );
 }
 
-// const deck = {
-//   deck_id: 1, //автоматически давался при создании deck в postgresql
-//   title: "100 главных слов английского языка",
-//   user_id: 1,
-//   is_public: true,
-//   cards: [
-//     {
-//       image_url: "example.com",
-//       english_word: "dog",
-//       russian_word: "собака",
-//     },
+const deck = {
+  deck_id: 1, //автоматически давался при создании deck в postgresql
+  title: "100 главных слов английского языка",
+  user_id: 1,
+  is_public: true,
+};
 
-//     {
-//       image_url: "example.com",
-//       english_word: "cat",
-//       russian_word: "кошка",
-//     },
-//   ],
-// };
+const card = {
+  card_id: 1, //автоматически давался при создании card в postgresql
+  deck_id: [1, 2, 3, 4], // суть в том, что эта карточка будет в нескольких deck
+  front: "dog",
+  back: "собака",
+};

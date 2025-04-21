@@ -14,21 +14,21 @@ export default {
       },
       colors: {
         primary: {
-          100: "oklch(var(--color-primary-100))",
-          400: "oklch(var(--color-primary-400))",
-          600: "oklch(var(--color-primary-600))",
+          100: "oklch(0.9 0.1 185))",
+          400: "oklch(0.75 0.14 185)",
+          600: "oklch(0.6 0.16 185)",
         },
         accent: {
-          400: "oklch(var(--color-accent-400))",
+          400: "oklch(0.8 0.18 25)",
         },
         success: {
-          400: "oklch(var(--color-success-400))",
+          400: "oklch(0.8 0.12 150)",
         },
         gray: {
-          50: "oklch(var(--color-gray-50))",
-          200: "oklch(var(--color-gray-200))",
-          700: "oklch(var(--color-gray-700))",
-          900: "oklch(var(--color-gray-900))",
+          50: "oklch(0.98 0.01 250)",
+          200: "oklch(0.9 0.02 250)",
+          700: "oklch(0.35 0.03 250)",
+          900: "oklch(0.15 0.02 250)",
         },
       },
     },

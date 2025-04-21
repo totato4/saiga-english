@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { addTitleColumn, fetchRevenue } from "../lib/data";
+
+const title = "100-английских-слов-по-частоте-употребления";
 
 export default async function Page() {
   return (
@@ -11,11 +12,8 @@ export default async function Page() {
         <Link href={"/decks/create"}>Создать свой набор карточек</Link>
       </button>
       <ul className="text-3xl flex flex-col gap-y-4 justify-start">
-        {/* {data.map((obj) => (
-          <div>{obj.revenue}</div>
-        ))} */}
         <li>
-          <Link href="/cards/100-английских-слов-по-частоте-употребления">
+          <Link href={`/decks/${title}`}>
             100 английских слов по частоте употребления
           </Link>
         </li>

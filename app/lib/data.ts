@@ -1,122 +1,124 @@
 import postgres from "postgres";
-import { Card, Deck } from "./definitions";
+import {
+  Card,
+  CardOperations,
+  CreateDeckParams,
+  Deck,
+  DeleteDeckParams,
+  UpdateDeckParams,
+} from "./definitions";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
-export async function fetchCardList() {
+export async function getDeck() {
   try {
-    const data = await sql`SELECT * FROM cards`;
-    return data;
+    const decks = await sql<Deck[]>`
+      SELECT * FROM decks
+    `;
+    return decks;
   } catch (error) {
-    console.error("Can't fetch cards", error);
-    throw new Error("Failed to fetch cards"); // Лучше пробросить ошибку для обработки в компоненте
+    console.error("Failed to create deck:", error);
+    throw new Error("Не удалось создать колоду");
   }
 }
 
-// db.ts
-export async function createDeck(
-  deckData: Omit<Deck, "deck_id">
-): Promise<Deck> {
-  const [deck] = await sql<Deck[]>`
-    INSERT INTO decks (title, user_id, is_public, cards)
-    VALUES (
-      ${deckData.title}, 
-      ${deckData.user_id}, 
-      ${deckData.is_public}, 
-      ${JSON.stringify(deckData.cards)}
-    )
-    RETURNING *
-  `;
-  return deck;
-}
-
-export async function getDeckById(deckId: number): Promise<Deck | null> {
-  const [deck] = await sql<Deck[]>`
-    SELECT * FROM decks WHERE deck_id = ${deckId}
-  `;
-  return deck || null;
-}
-
-export async function updateDeckCards(
-  deckId: number,
-  newCards: Card[]
-): Promise<Deck> {
-  const [deck] = await sql<Deck[]>`
-    UPDATE decks 
-    SET cards = ${JSON.stringify(newCards)}, updated_at = NOW()
-    WHERE deck_id = ${deckId}
-    RETURNING *
-  `;
-  return deck;
-}
-
-export async function addCardToDeck(
-  deckId: number,
-  newCard: Card
-): Promise<Deck> {
-  const [deck] = await sql<Deck[]>`
-    UPDATE decks 
-    SET cards = cards || ${JSON.stringify([newCard])}::JSONB, 
+export async function updateDeck({
+  deck_id,
+  title,
+  is_public,
+}: UpdateDeckParams): Promise<Deck> {
+  try {
+    const [deck] = await sql<Deck[]>`
+      UPDATE decks 
+      SET 
+        title = ${title},
+        is_public = ${is_public},
         updated_at = NOW()
-    WHERE deck_id = ${deckId}
-    RETURNING *
-  `;
-  return deck;
+      WHERE deck_id = ${deck_id}
+      RETURNING *;
+    `;
+    return deck;
+  } catch (error) {
+    console.error("Failed to update deck:", error);
+    throw new Error("Не удалось обновить колоду");
+  }
 }
 
-// export async function fetchRevenue() {
-//   try {
-//     // Artificially delay a response for demo purposes.
-//     // Don't do this in production :)
+// Функции для работы с карточками
+export async function createCard(
+  front: string,
+  back: string,
+  deck_id: number
+): Promise<Card> {
+  try {
+    return await sql.begin(async (transaction) => {
+      const [card] = await transaction<Card[]>`
+        INSERT INTO cards (front, back) 
+        VALUES (${front}, ${back}) 
+        RETURNING *;
+      `;
 
-//     // console.log("Fetching revenue data...");
-//     // await new Promise((resolve) => setTimeout(resolve, 3000));
+      await transaction`
+        INSERT INTO deck_cards (deck_id, card_id) 
+        VALUES (${deck_id}, ${card.card_id})
+      `;
 
-//     const data = await sql<Revenue[]>`SELECT * FROM revenue`;
+      return card;
+    });
+  } catch (error) {
+    console.error("Failed to create card:", error);
+    throw new Error("Не удалось создать карточку");
+  }
+}
 
-//     console.log("Data fetch completed after 3 seconds.");
+export async function updateCard(
+  card_id: number,
+  front: string,
+  back: string
+): Promise<Card> {
+  try {
+    const [card] = await sql<Card[]>`
+      UPDATE cards 
+      SET 
+        front = ${front},
+        back = ${back},
+        updated_at = NOW()
+      WHERE card_id = ${card_id}
+      RETURNING *;
+    `;
+    return card;
+  } catch (error) {
+    console.error("Failed to update card:", error);
+    throw new Error("Не удалось обновить карточку");
+  }
+}
 
-//     return data;
-//   } catch (error) {
-//     console.error("Database Error:", error);
-//     throw new Error("Failed to fetch revenue data.");
-//   }
-// }
+// Вспомогательные функции
+export async function addCardToDeck({
+  deck_id,
+  card_id,
+}: CardOperations): Promise<void> {
+  try {
+    await sql`
+      INSERT INTO deck_cards (deck_id, card_id) 
+      VALUES (${deck_id}, ${card_id})
+      ON CONFLICT (deck_id, card_id) DO NOTHING;
+    `;
+  } catch (error) {
+    console.error("Failed to add card to deck:", error);
+    throw new Error("Не удалось добавить карточку в колоду");
+  }
+}
 
-// export async function createDecksTable() {
-//   try {
-//     await sql`
-//       CREATE TABLE IF NOT EXISTS decks (
-//         deck_id SERIAL PRIMARY KEY,
-//         title VARCHAR(100) NOT NULL,
-//         user_id INTEGER NOT NULL,
-//         is_public BOOLEAN DEFAULT FALSE,
-//         cards JSONB NOT NULL DEFAULT '[]'::JSONB,
-//         created_at TIMESTAMP DEFAULT NOW(),
-//         updated_at TIMESTAMP DEFAULT NOW()
-//       )
-//     `;
-
-//     // Создаем индекс для JSONB массива (для поиска по словам)
-//     await sql`
-//       CREATE INDEX IF NOT EXISTS idx_decks_cards_gin ON decks USING GIN (cards jsonb_path_ops)
-//     `;
-//     console.log("СОЗДАЛИ");
-//     return "Таблица decks создана с JSONB полем для карточек";
-//   } catch (error) {
-//     console.error("Ошибка при создании таблицы:", error);
-//     throw error;
-//   }
-// }
-
-// export async function dropOldTables() {
-//   try {
-//     await sql`DROP TABLE IF EXISTS cards`;
-//     await sql`DROP TABLE IF EXISTS decks`;
-//     console.log("таблицы удалены");
-//     return "Старые таблицы удалены";
-//   } catch (error) {
-//     console.error("Ошибка при удалении таблиц:", error);
-//     throw error;
-//   }
-// }
+export async function getDeckCards(deck_id: number): Promise<Card[]> {
+  try {
+    return await sql<Card[]>`
+      SELECT c.* FROM cards c
+      JOIN deck_cards dc ON c.card_id = dc.card_id
+      WHERE dc.deck_id = ${deck_id}
+    `;
+  } catch (error) {
+    console.error("Failed to get deck cards:", error);
+    throw new Error("Не удалось получить карточки колоды");
+  }
+}
