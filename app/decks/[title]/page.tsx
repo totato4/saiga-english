@@ -1,6 +1,5 @@
 import { getDeck } from "@/app/lib/data";
-import { Deck } from "@/app/lib/definitions";
-import { DeleteButton } from "@/app/ui/deck/DeleteButton";
+import { DeleteButton } from "@/app/ui/deck/delete-button";
 
 export default async function Page(props: {
   params: Promise<{ title: string }>;

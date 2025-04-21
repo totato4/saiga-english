@@ -1,8 +1,9 @@
 "use server";
 
 import postgres from "postgres";
-import { Card, CreateDeckParams, Deck, DeleteDeckParams } from "./definitions";
+import { Card, Deck } from "./definitions";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -21,22 +22,21 @@ export async function deleteCard(card_id: number): Promise<Card> {
 }
 
 // Функции для работы с колодами
-export async function createDeck({
-  title,
-  user_id,
-  is_public = true,
-}: CreateDeckParams): Promise<Deck> {
+export async function createDeck(formData: FormData) {
+  const title = formData.get("title") as string;
+  const user_id = formData.get("user_id") as string;
+  const is_public = formData.get("is_public") as string;
   try {
-    const [deck] = await sql<Deck[]>`
+    await sql<Deck[]>`
       INSERT INTO decks (title, user_id, is_public) 
       VALUES (${title}, ${user_id}, ${is_public}) 
       RETURNING *;
     `;
-    return deck;
   } catch (error) {
     console.error("Failed to create deck:", error);
     throw new Error("Не удалось создать колоду");
   }
+  redirect("/decks");
 }
 
 export async function deleteDeck(formData: FormData) {
@@ -44,7 +44,7 @@ export async function deleteDeck(formData: FormData) {
   const user_id = formData.get("user_id") as string;
   const title = formData.get("title") as string;
   try {
-    const [deck] = await sql<Deck[]>`
+    await sql<Deck[]>`
       WITH 
         cards_in_target_deck AS (
           SELECT card_id FROM deck_cards WHERE deck_id = ${deck_id}
@@ -65,7 +65,7 @@ export async function deleteDeck(formData: FormData) {
       WHERE card_id IN (SELECT card_id FROM orphaned_cards)
       RETURNING *;
     `;
-  } catch (error) {
+  } catch {
     throw new Error("Не удалось удалить колоду");
   }
   revalidatePath(`/decks/${title}`);
