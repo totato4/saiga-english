@@ -1,5 +1,6 @@
 import { getDeck } from "@/app/lib/data";
 import { DeleteButton } from "@/app/ui/deck/delete-button";
+import { EditButton } from "@/app/ui/deck/edit-button";
 
 export default async function Page(props: {
   params: Promise<{ title: string }>;
@@ -17,12 +18,13 @@ export default async function Page(props: {
           {decks.map((deck) => (
             <li
               key={deck.deck_id}
-              className="flex justify-between items-center p-3 bg-white rounded-lg shadow-sm"
+              className="grid grid-cols-2 justify-items-center gap-2  p-3 bg-white rounded-lg shadow-sm w-[200px] h-[200px]"
             >
-              <span className="font-medium">{deck.title}</span>
+              <span className="font-medium col-span-full ">{deck.title}</span>
+              <EditButton deck_id={deck.deck_id} />
               <DeleteButton
-                deckId={deck.deck_id}
-                userId={deck.user_id}
+                deck_id={deck.deck_id}
+                user_id={deck.user_id}
                 title={title}
               />
             </li>

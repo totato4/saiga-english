@@ -21,6 +21,20 @@ export async function deleteCard(card_id: number): Promise<Card> {
   }
 }
 
+export async function getDeckById(deck_id: string): Promise<Deck> {
+  try {
+    const [deck] = await sql<Deck[]>`
+      SELECT * FROM decks 
+      WHERE deck_id = ${deck_id}
+      
+    `;
+    return deck;
+  } catch (error) {
+    console.error("Failed to delete card:", error);
+    throw new Error("Не удалось получить deck по id");
+  }
+}
+
 // Функции для работы с колодами
 export async function createDeck(formData: FormData) {
   const title = formData.get("title") as string;
@@ -69,4 +83,29 @@ export async function deleteDeck(formData: FormData) {
     throw new Error("Не удалось удалить колоду");
   }
   revalidatePath(`/decks/${title}`);
+}
+
+// Функции для работы с карточками
+export async function createCard(formData: FormData) {
+  const front = formData.get("front") as string;
+  const back = formData.get("back") as string;
+  const deck_id = formData.get("deck_id") as string;
+  try {
+    await sql.begin(async (transaction) => {
+      const [card] = await transaction<Card[]>`
+        INSERT INTO cards (front, back) 
+        VALUES (${front}, ${back}) 
+        RETURNING *;
+      `;
+
+      await transaction`
+        INSERT INTO deck_cards (deck_id, card_id) 
+        VALUES (${deck_id}, ${card.card_id})
+      `;
+    });
+  } catch (error) {
+    console.error("Failed to create card:", error);
+    throw new Error("Не удалось создать карточку");
+  }
+  revalidatePath(`/decks/${deck_id}`);
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ThemeToggle from "./ui/ThemeToggle";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,12 +26,32 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="w-[100vw] h-[100vh] pt-[150px]   flex justify-center  align-middle bg-blue-200 dark:bg-accent ">
+      <body className={`overflow-hidden`}>
+        <header className="bg-blue-200 border-b-2 border-b-blue-900 flex justify-between items-center px-[30px] w-[100%] ">
+          <Link
+            href="/"
+            className=" max-w-[200px] text-xl bg-blue-400 
+          rounded-3xl ml-10 my-auto flex justify-center items-center
+         "
+          >
+            <span className="my-auto py-3 text-2xl font-bold text-white">
+              Saiga-English
+            </span>
+          </Link>
+          <ul className="grid grid-cols-4  h-[70px] justify-items-center items-center text-2xl bg-yellow-300">
+            <Link href={"/"}>Главная</Link>
+            <Link href={"/decks"}>Колоды</Link>
+            <Link href={"/about"}>О нас</Link>
+            <Link className="text-nowrap" href={"/results"}>
+              Мои результаты
+            </Link>
+          </ul>
+          <div className="w-[70px]">
+            <ThemeToggle></ThemeToggle>
+          </div>
+        </header>
+        <div className=" pt-[150px]   flex justify-center  align-middle  dark:bg-accent ">
           <div className="max-w-[1280px]  w-[100%] h-[100%]"> {children}</div>
-          <ThemeToggle />
         </div>
       </body>
     </html>

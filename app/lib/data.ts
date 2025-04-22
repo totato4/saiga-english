@@ -44,33 +44,6 @@ export async function updateDeck({
   }
 }
 
-// Функции для работы с карточками
-export async function createCard(
-  front: string,
-  back: string,
-  deck_id: number
-): Promise<Card> {
-  try {
-    return await sql.begin(async (transaction) => {
-      const [card] = await transaction<Card[]>`
-        INSERT INTO cards (front, back) 
-        VALUES (${front}, ${back}) 
-        RETURNING *;
-      `;
-
-      await transaction`
-        INSERT INTO deck_cards (deck_id, card_id) 
-        VALUES (${deck_id}, ${card.card_id})
-      `;
-
-      return card;
-    });
-  } catch (error) {
-    console.error("Failed to create card:", error);
-    throw new Error("Не удалось создать карточку");
-  }
-}
-
 export async function updateCard(
   card_id: number,
   front: string,
@@ -110,7 +83,7 @@ export async function addCardToDeck({
   }
 }
 
-export async function getDeckCards(deck_id: number): Promise<Card[]> {
+export async function getDeckCards(deck_id: string): Promise<Card[]> {
   try {
     return await sql<Card[]>`
       SELECT c.* FROM cards c

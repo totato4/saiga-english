@@ -5,18 +5,18 @@ import { deleteDeck } from "@/app/lib/actions";
 import { DeleteButtonStatus } from "./delete-button-status";
 
 export function DeleteButton({
-  deckId,
-  userId,
+  deck_id,
+  user_id,
   title,
 }: {
-  deckId: number;
-  userId: number;
+  deck_id: number;
+  user_id: number;
   title: string;
 }) {
   return (
-    <form action={deleteDeck} className="inline">
-      <input type="hidden" name="deck_id" value={deckId} />
-      <input type="hidden" name="user_id" value={userId} />
+    <form action={deleteDeck} className="">
+      <input type="hidden" name="deck_id" value={deck_id} />
+      <input type="hidden" name="user_id" value={user_id} />
       <input type="hidden" name="title" value={title} />
 
       <DeleteButtonStatus />
