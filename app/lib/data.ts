@@ -1,12 +1,5 @@
 import postgres from "postgres";
-import {
-  Card,
-  CardOperations,
-  CreateDeckParams,
-  Deck,
-  DeleteDeckParams,
-  UpdateDeckParams,
-} from "./definitions";
+import { Card, CardOperations, Deck, UpdateDeckParams } from "./definitions";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
