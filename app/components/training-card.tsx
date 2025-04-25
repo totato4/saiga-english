@@ -6,8 +6,35 @@ import { Card } from "../lib/definitions";
 export default function TrainingCard({ cards }: { cards: Card[] }) {
   const [show, setShow] = useState<boolean>(false);
   const [current, setCurrent] = useState<number>(0);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const speakText = (text: string) => {
+    // Проверяем поддержку API в браузере
+    if ("speechSynthesis" in window) {
+      // Останавливаем текущее воспроизведение, если есть
+      window.speechSynthesis.cancel();
+
+      // Создаем новый экземпляр SpeechSynthesisUtterance
+      const utterance = new SpeechSynthesisUtterance(text);
+
+      // Настраиваем параметры речи
+      utterance.lang = show ? "ru-RU" : "en-US"; // Выбираем язык в зависимости от состояния
+      utterance.rate = 1; // Скорость речи (1 - нормальная)
+
+      // Обработчики событий
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+
+      // Запускаем синтез речи
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert("Ваш браузер не поддерживает озвучивание текста");
+    }
+  };
+
   const goNext = () => {
     setShow(false);
+    window.speechSynthesis?.cancel();
     if (current < cards.length - 1) {
       setCurrent(current + 1);
     }
@@ -17,6 +44,7 @@ export default function TrainingCard({ cards }: { cards: Card[] }) {
   };
   const goPrev = () => {
     setShow(false);
+    window.speechSynthesis?.cancel();
     if (current > 0) {
       setCurrent(current - 1);
     }
@@ -26,12 +54,35 @@ export default function TrainingCard({ cards }: { cards: Card[] }) {
   };
   return (
     <div className="grid grid-cols-1 justify-items-center grid-rows-1">
-      <div className="grid grid-rows-4 items-center justify-center rounded-2xl bg-blue-100 h-[250px] w-[180px]">
-        <div>{show ? cards[current].back : cards[current].front}</div>
-        <button className="cursor-pointer" onClick={() => setShow(!show)}>
+      <div className="grid grid-rows-4 items-center justify-center rounded-2xl bg-blue-100 h-[300px] w-[250px]">
+        {/* текст внутри этого div нужно озвучивать, как видишь там два текста в зависимости от состояния show, там текст на английском в cards.front и на русском в cards.back */}
+        <div className="text-center text-4xl font-bold">
+          {show ? cards[current].back : cards[current].front}
+          <button
+            onClick={() =>
+              speakText(show ? cards[current].back : cards[current].front)
+            }
+            className="w-[40px] h-[40px] cursor-pointer"
+            disabled={isSpeaking}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill={isSpeaking ? "#4ab6c7" : "currentColor"}
+              className="w-6 h-6"
+            >
+              <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" />
+              <path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" />
+            </svg>
+          </button>
+        </div>
+        <button
+          className="cursor-pointer text-2xl"
+          onClick={() => setShow(!show)}
+        >
           Показать
         </button>
-        <div>
+        <div className="flex justify-between items-center gap-3.5">
           {/* like */}
           <button className="w-[50px] h-[50px] cursor-pointer">
             <svg
@@ -59,7 +110,9 @@ export default function TrainingCard({ cards }: { cards: Card[] }) {
             </svg>
           </button>
         </div>
-        <div>
+        {/* navigate btns
+         */}
+        <div className="flex justify-between items-center">
           {/* prev */}
 
           <button
