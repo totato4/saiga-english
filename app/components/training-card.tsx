@@ -1,0 +1,53 @@
+"use client";
+
+import { useState } from "react";
+import { Card } from "../lib/definitions";
+
+export default function TrainingCard({ cards }: { cards: Card[] }) {
+  const [show, setShow] = useState<boolean>(false);
+  const [current, setCurrent] = useState<number>(0);
+  const goNext = () => {
+    if (current < cards.length) {
+      setCurrent(current + 1);
+    }
+    if (current == cards.length) {
+      setCurrent(0);
+    }
+  };
+  const goPrev = () => {
+    if (current > 0) {
+      setCurrent(current - 1);
+    }
+    if (current == 0) {
+      setCurrent(cards.length - 1);
+    }
+  };
+  return (
+    <div>
+      <div>
+        <div>
+          <div>{show ? cards[i].back : cards[i].front}</div>
+          <button>Показать</button>{" "}
+          <div>
+            <button className="w-[50px] h-[50px] bg-green-300">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                <path
+                  d="M27 11h-8.52L19 9.8A6.42 6.42 0 0 0 13 1a1 1 0 0 0-.93.63L8.32 11H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h18.17a3 3 0 0 0 2.12-.88l3.83-3.83a3 3 0 0 0 .88-2.12V14a3 3 0 0 0-3-3zM4 28V14a1 1 0 0 1 1-1h3v16H5a1 1 0 0 1-1-1zm24-3.83a1 1 0 0 1-.29.71l-3.83 3.83a1.05 1.05 0 0 1-.71.29H10V12.19l3.66-9.14a4.31 4.31 0 0 1 3 1.89 4.38 4.38 0 0 1 .44 4.12l-1 2.57A1 1 0 0 0 17 13h10a1 1 0 0 1 1 1z"
+                  data-name="thumb up android app aplication phone"
+                />
+              </svg>
+            </button>
+            <button className="w-[50px] h-[50px] bg-red-400">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                <path
+                  d="m29.12 5.71-3.83-3.83A3 3 0 0 0 23.17 1H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h3.32l3.75 9.37A1 1 0 0 0 13 31a6.42 6.42 0 0 0 6-8.8l-.52-1.2H27a3 3 0 0 0 3-3V7.83a3 3 0 0 0-.88-2.12zM4 18V4a1 1 0 0 1 1-1h3v16H5a1 1 0 0 1-1-1zm24 0a1 1 0 0 1-1 1H17a1 1 0 0 0-.93 1.37l1 2.57a4.38 4.38 0 0 1-.44 4.12 4.31 4.31 0 0 1-3 1.89L10 19.81V3h13.17a1 1 0 0 1 .71.29l3.83 3.83a1 1 0 0 1 .29.71z"
+                  data-name="thumb down android app aplication phone"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
