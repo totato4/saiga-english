@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Переопределяем dark variant для ручного управления */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {

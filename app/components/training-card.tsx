@@ -56,7 +56,12 @@ export default function TrainingCard({ cards }: { cards: Card[] }) {
     <div className="grid grid-cols-1 justify-items-center grid-rows-1">
       <div className="grid grid-rows-4 items-center justify-center rounded-2xl bg-blue-100 h-[300px] w-[250px]">
         {/* текст внутри этого div нужно озвучивать, как видишь там два текста в зависимости от состояния show, там текст на английском в cards.front и на русском в cards.back */}
-        <div className="text-center text-4xl font-bold">
+        <div
+          onClick={() =>
+            speakText(show ? cards[current].back : cards[current].front)
+          }
+          className="text-center text-4xl font-bold"
+        >
           {show ? cards[current].back : cards[current].front}
           <button
             onClick={() =>
