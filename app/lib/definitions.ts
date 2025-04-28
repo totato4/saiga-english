@@ -12,6 +12,7 @@ export interface Card {
   card_id: number;
   front: string;
   back: string;
+  image_url: string;
   created_at: Date;
   updated_at: Date;
 }

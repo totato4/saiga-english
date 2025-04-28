@@ -42,6 +42,19 @@ export default async function Page(props: {
           />
         </label>
 
+        <label
+          htmlFor="image_url"
+          className="w-[280px] gap-[10px] flex justify-end flex-nowrap"
+        >
+          <span>ссылка на картинку:</span>
+          <input
+            type="text"
+            id="image_url"
+            name="image_url"
+            className="bg-blue-100 rounded-2xl border-2 border-blue-400 "
+          />
+        </label>
+
         <input
           type="hidden"
           id="deck_id"

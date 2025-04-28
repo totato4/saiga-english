@@ -53,21 +53,32 @@ export default function TrainingCard({ cards }: { cards: Card[] }) {
     }
   };
   return (
-    <div className="grid grid-cols-1 justify-items-center grid-rows-1">
-      <div className="grid grid-rows-4 items-center justify-center rounded-2xl bg-blue-100 h-[300px] w-[250px]">
+    <div className="grid grid-rows-1 grid-cols-1 justify-items-center">
+      <div className=" flex flex-col items-center justify-end p-[20px] gap-y-[25px] max-w-[400px] rounded-2xl bg-blue-100 px-[100px]">
+        {cards[current].image_url && (
+          <div className="w-[100%] h-[150px] ">
+            <img
+              className="w-[100%] h-[100%] object-cover"
+              src={cards[current].image_url}
+              alt=""
+            />
+          </div>
+        )}
         {/* текст внутри этого div нужно озвучивать, как видишь там два текста в зависимости от состояния show, там текст на английском в cards.front и на русском в cards.back */}
         <div
           onClick={() =>
             speakText(show ? cards[current].back : cards[current].front)
           }
-          className="text-center text-4xl font-bold"
+          className="text-center text-4xl font-bold flex justify-center items-center gap-x-[10px]"
         >
-          {show ? cards[current].back : cards[current].front}
+          <div className="flex items-center justify-center">
+            {show ? cards[current].back : cards[current].front}
+          </div>
           <button
             onClick={() =>
               speakText(show ? cards[current].back : cards[current].front)
             }
-            className="w-[40px] h-[40px] cursor-pointer"
+            className=" cursor-pointer  "
             disabled={isSpeaking}
           >
             <svg
@@ -81,13 +92,14 @@ export default function TrainingCard({ cards }: { cards: Card[] }) {
             </svg>
           </button>
         </div>
+
         <button
           className="cursor-pointer text-2xl"
           onClick={() => setShow(!show)}
         >
           Показать
         </button>
-        <div className="flex justify-between items-center gap-3.5">
+        <div className="flex justify-between items-center gap-[30px]">
           {/* like */}
           <button className="w-[50px] h-[50px] cursor-pointer">
             <svg
@@ -117,7 +129,7 @@ export default function TrainingCard({ cards }: { cards: Card[] }) {
         </div>
         {/* navigate btns
          */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-x-[25px]">
           {/* prev */}
 
           <button
@@ -132,6 +144,9 @@ export default function TrainingCard({ cards }: { cards: Card[] }) {
               <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
             </svg>
           </button>
+          <div>
+            {current + 1} из {cards.length}
+          </div>
           {/* next */}
           <button
             onClick={() => goNext()}

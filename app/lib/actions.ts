@@ -90,11 +90,12 @@ export async function createCard(formData: FormData) {
   const front = formData.get("front") as string;
   const back = formData.get("back") as string;
   const deck_id = formData.get("deck_id") as string;
+  const image_url = formData.get("image_url") as string;
   try {
     await sql.begin(async (transaction) => {
       const [card] = await transaction<Card[]>`
-        INSERT INTO cards (front, back) 
-        VALUES (${front}, ${back}) 
+        INSERT INTO cards (front, back, image_url) 
+        VALUES (${front}, ${back}, ${image_url}) 
         RETURNING *;
       `;
 

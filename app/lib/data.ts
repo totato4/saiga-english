@@ -3,6 +3,18 @@ import { Card, CardOperations, Deck, UpdateDeckParams } from "./definitions";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
+// export async function droping() {
+//   try {
+//     const decks = await sql`
+//     ALTER TABLE cards
+//     ADD COLUMN image_url TEXT NULL;  -- NULL разрешён (картинка не обязательна)
+//     `;
+//     console.log("ПОЛУЧИЛОСЬ");
+//   } catch {
+//     console.log("не получилось");
+//   }
+// }
+
 export async function getDeck() {
   try {
     const decks = await sql<Deck[]>`

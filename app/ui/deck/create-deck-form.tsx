@@ -1,13 +1,13 @@
 import { createDeck } from "@/app/lib/actions";
 
-export default async function CreateModal() {
+export default async function CreateDeckForm() {
   return (
     <form
       action={createDeck}
       className="
       flex justify-start items-start flex-col gap-y-[20px]
       pt-[40px] p-[20px]
-    absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[400px] h-[400px] bg-blue-100"
+    absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[400px] h-[400px]"
     >
       <h2 className="mx-auto">Создать колоду</h2>
       <label htmlFor="user_id" className="flex flex-nowrap gap-x-[10px]">

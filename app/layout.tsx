@@ -28,14 +28,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`overflow-hidden`}>
+      <body className="overflow-hidden text-text dark:text-dtext">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <header className="bg-blue-200 border-b-2 border-b-blue-900 flex justify-between items-center px-[30px] w-[100%] ">
+          <header className=" bg-bgdaccent dark:bg-dbgdaccent  border-b-2 flex justify-between items-center px-[30px] w-[100%] ">
             <Link
               href="/"
               className=" max-w-[200px] text-xl bg-blue-400 
