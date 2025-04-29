@@ -8,7 +8,7 @@ export function DeleteButtonStatus() {
   return (
     <button
       disabled={pending}
-      className="text-red-600 hover:text-red-800 transition-colors disabled:opacity-50"
+      className="text-red-600 hover:text-red-800 transition-colors disabled:opacity-50 "
       aria-label={pending ? "Идёт удаление..." : "Удалить"}
     >
       {pending ? (
@@ -19,7 +19,7 @@ export function DeleteButtonStatus() {
         <label className="flex flex-nowrap w-[30px] h-[30px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-[30px] w-[30px]"
+            className="h-[30px] w-[30px] hover:opacity-80 transition-opacity text-error dark:text-dark-error"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

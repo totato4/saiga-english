@@ -17,11 +17,11 @@ export default async function Page() {
           <input
             id="search"
             type="text"
-            className="border border-gray-300 focus:border-blue-500 rounded-md text-[24px]"
+            className="border border-gray-300 focus:border-blue-500 rounded-md text-[24px] bg-surface dark:bg-dark-surface"
           />
         </label>
         <span className="text-xl">или</span>
-        <button className="px-[10px] rounded-2xl cursor-pointer h-[70px] bg-blue-400  border-2 text-gray-100 text-2xl">
+        <button className="px-[10px] rounded-2xl cursor-pointer h-[70px] bg-blue-400  border-2 text-gray-100 text-2xl bg-primary dark:bg-dark-primary text-text dark:text-dark-text">
           <Link href={"/decks/create"}>Создать свою колоду</Link>
         </button>
       </div>

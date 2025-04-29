@@ -1,17 +1,14 @@
 // /app/ui/deck/delete-button.tsx
 "use client";
-
-import { deleteDeck } from "@/app/lib/actions";
-import { DeleteButtonStatus } from "./delete-button-status";
 import Link from "next/link";
 
 export function EditButton({ deck_id }: { deck_id: number }) {
   return (
     <Link href={`/decks/edit/${deck_id}`}>
-      <button className=" flex flex-nowrap w-[30px] h-[30px] ">
+      <button className=" flex flex-nowrap w-[30px] h-[30px]  ">
         <div>
           <svg
-            className="w-[30px] h-[30px]"
+            className="w-[30px] h-[30px] hover:opacity-80 transition-opacity fill-accent dark:fill-dark-accent"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
           >

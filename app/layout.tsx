@@ -28,14 +28,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="overflow-hidden text-text dark:text-dtext">
+      <body className="overflow-hidden text-text dark:text-dark-text bg-background dark:bg-dark-background min-h-[100vh]">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <header className=" bg-bgdaccent dark:bg-dbgdaccent  border-b-2 flex justify-between items-center px-[30px] w-[100%] ">
+          <header className="bg-surface dark:bg-dark-surface flex justify-between items-center px-[30px] w-[100%] ">
             <Link
               href="/"
               className=" max-w-[200px] text-xl bg-blue-400 
@@ -58,7 +58,7 @@ export default function RootLayout({
               <ThemeToggle />
             </div>
           </header>
-          <div className=" pt-[150px]   flex justify-center  align-middle  dark:bg-accent ">
+          <div className=" pt-[150px]   flex justify-center  align-middle bg-background dark:bg-dark-background ">
             <div className="max-w-[1280px]  w-[100%] h-[100%]"> {children}</div>
           </div>
         </ThemeProvider>

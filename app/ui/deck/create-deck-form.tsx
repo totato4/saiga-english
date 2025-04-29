@@ -13,7 +13,7 @@ export default async function CreateDeckForm() {
       <label htmlFor="user_id" className="flex flex-nowrap gap-x-[10px]">
         id пользователя:{" "}
         <input
-          className="bg-blue-200 rounded-2xl"
+          className="bg-blue-200 rounded-2xl bg-surface dark:bg-dark-surface"
           type="text"
           id="user_id"
           name="user_id"
@@ -23,7 +23,7 @@ export default async function CreateDeckForm() {
       <label htmlFor="title" className="flex flex-nowrap gap-x-[10px]">
         название колоды:{" "}
         <input
-          className="bg-blue-200 rounded-2xl"
+          className="bg-blue-200 rounded-2xl bg-surface dark:bg-dark-surface"
           type="text"
           id="title"
           name="title"
@@ -31,12 +31,17 @@ export default async function CreateDeckForm() {
       </label>
       <label htmlFor="is_public" className="flex flex-nowrap gap-x-[10px]">
         Колода видна всем пользователям:
-        <input type="checkbox" name="is_public" id="is_public" />
+        <input
+          className="bg-surface dark:bg-dark-surface"
+          type="checkbox"
+          name="is_public"
+          id="is_public"
+        />
       </label>
       <button
         className="
       cursor-pointer hover:bg-blue-500 transition-colors
-      w-[100%] h-[50px] bg-blue-400 rounded-2xl"
+      w-[100%] h-[50px] bg-blue-400 rounded-2xl bg-primary dark:bg-dark-primary"
       >
         Создать
       </button>
