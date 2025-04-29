@@ -27,8 +27,6 @@ export default function TrainingCard({ cards }: { cards: Card[] }) {
 
       // Запускаем синтез речи
       window.speechSynthesis.speak(utterance);
-    } else {
-      alert("Ваш браузер не поддерживает озвучивание текста");
     }
   };
 
@@ -52,9 +50,6 @@ export default function TrainingCard({ cards }: { cards: Card[] }) {
       setCurrent(cards.length - 1);
     }
   };
-  useEffect(() => {
-    alert("SPEAKING");
-  }, [isSpeaking]);
   return (
     <div className="grid grid-rows-1 grid-cols-1 justify-items-center">
       <div className=" flex flex-col items-center justify-end p-[20px] gap-y-[25px] max-w-[400px] rounded-2xl bg-blue-100 px-[100px]">

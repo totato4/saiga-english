@@ -2,7 +2,7 @@ import Link from "next/link";
 import { EditButton } from "./edit-button";
 import { DeleteButton } from "./delete-button";
 
-export default async function Deck({
+export default async function DeckItem({
   deck_id,
   title,
   user_id,

@@ -39,10 +39,25 @@
 
   --color-dark-error: oklch(0.8 0.15 25); /* Ошибки, предупреждения */
 }
-/* 
-html[data-theme="“dark”"] {
-  ::—dark-color: #ffffff;
-  ::-light-color: #000000;
-  ::-dark-bg: #000000;
-  ::-light-bg: #ffffff;
-} */
+.primary-style {
+  @apply bg-primary dark:bg-dark-primary text-text dark:text-dark-text;
+}
+.secondary-style {
+  @apply bg-secondary dark:bg-dark-secondary text-text dark:text-dark-text;
+}
+
+.accent-style {
+  @apply bg-accent dark:bg-dark-accent text-text dark:text-dark-text;
+}
+
+.success-style {
+  @apply bg-success dark:bg-dark-success text-text dark:text-dark-text;
+}
+
+.error-style {
+  @apply bg-error dark:bg-dark-error text-text dark:text-dark-text;
+}
+
+.ta4 {
+  @apply hover:opacity-80 transition-opacity active:opacity-80;
+}

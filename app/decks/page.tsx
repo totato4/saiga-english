@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { getDeck } from "../lib/data";
-import Deck from "../ui/deck/deck";
+import DeckList from "../ui/deck/deck-list";
+import { Suspense } from "react";
+import LoadingImg from "../ui/deck/loading-img";
 
 const title = "100-английских-слов-по-частоте-употребления";
 
 export default async function Page() {
-  const decks = await getDeck();
   return (
     <main className="flex flex-col justify-center items-center">
       <h1 className="mb-[100px] text-4xl ">
@@ -26,16 +26,9 @@ export default async function Page() {
         </button>
       </div>
 
-      <ul className="text-3xl flex flex-col gap-y-4 justify-start">
-        {decks.map((deck) => (
-          <Deck
-            deck_id={deck.deck_id}
-            title={deck.title}
-            user_id={deck.user_id}
-            key={deck.deck_id}
-          />
-        ))}
-      </ul>
+      <Suspense fallback={<LoadingImg title={"Загружаем колоды..."} />}>
+        <DeckList />
+      </Suspense>
     </main>
   );
 }

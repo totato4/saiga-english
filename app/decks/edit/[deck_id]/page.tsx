@@ -25,7 +25,7 @@ export default async function Page(props: {
             type="text"
             id="front"
             name="front"
-            className="bg-blue-100 rounded-2xl border-2 border-blue-400"
+            className=" rounded-2xl border-2 border-blue-400"
           />
         </label>
 
@@ -64,7 +64,7 @@ export default async function Page(props: {
         />
         <button
           type="submit"
-          className="py-[10px] px-[20px] bg-blue-400 rounded-2xl"
+          className="py-[10px] px-[20px] bg-blue-400 rounded-2xl primary-style"
         >
           добавить
         </button>
