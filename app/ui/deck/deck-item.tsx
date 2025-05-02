@@ -14,7 +14,7 @@ export default async function DeckItem({
   return (
     <li
       key={deck_id}
-      className="flex flex-nowrap w-[100%] justify-between border-black border-2 rounded-2xl "
+      className="flex flex-nowrap w-[100%] justify-between border-black border-2 rounded-2xl p-[10px] button-style "
     >
       <Link
         href={`/decks/training/${deck_id}`}

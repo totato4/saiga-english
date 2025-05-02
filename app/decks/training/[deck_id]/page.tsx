@@ -9,8 +9,8 @@ export default async function Page(props: {
   const deck = await getDeckById(deck_id);
   const cards = await getDeckCards(deck_id);
   return (
-    <div>
-      <h1>{deck.title}</h1>
+    <div className="flex flex-col w-[100%] justify-center items-center gap-y-[50px]">
+      <h1 className="title">{deck.title}</h1>
       <TrainingCard cards={cards} />
     </div>
   );

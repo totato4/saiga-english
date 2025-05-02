@@ -51,8 +51,8 @@ export default function TrainingCard({ cards }: { cards: Card[] }) {
     }
   };
   return (
-    <div className="grid grid-rows-1 grid-cols-1 justify-items-center">
-      <div className=" flex flex-col items-center justify-end p-[20px] gap-y-[25px] max-w-[400px] rounded-2xl bg-blue-100 px-[100px]">
+    <div className="grid grid-rows-1 grid-cols-1 justify-items-center w-[450px] h-[470px]">
+      <div className=" flex flex-col items-center justify-end p-[20px] gap-y-[25px] rounded-2xl bg-blue-100 px-[100px]">
         {cards[current].image_url && (
           <div className="w-[100%] h-[150px] ">
             <img
@@ -67,7 +67,7 @@ export default function TrainingCard({ cards }: { cards: Card[] }) {
           onClick={() =>
             speakText(show ? cards[current].back : cards[current].front)
           }
-          className="text-center text-4xl font-bold flex justify-center items-center gap-x-[10px]"
+          className="text-center text-4xl font-bold flex justify-center items-center gap-x-[10px] cursor-pointer"
         >
           <div
             className={`${

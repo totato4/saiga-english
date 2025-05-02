@@ -46,6 +46,10 @@
   @apply bg-secondary dark:bg-dark-secondary text-text dark:text-dark-text;
 }
 
+.button-style {
+  @apply bg-[#b8daf5] dark:bg-[#1b4463];
+}
+
 .accent-style {
   @apply bg-accent dark:bg-dark-accent text-text dark:text-dark-text;
 }
@@ -60,4 +64,15 @@
 
 .ta4 {
   @apply hover:opacity-80 transition-opacity active:opacity-80;
+}
+
+.title {
+  @apply text-4xl;
+}
+.subtitle {
+  @apply text-2xl;
+}
+
+.txt {
+  @apply text-xl;
 }

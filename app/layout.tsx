@@ -38,7 +38,7 @@ export default function RootLayout({
           <header className="bg-surface dark:bg-dark-surface flex justify-between items-center px-[30px] w-[100%] ">
             <Link
               href="/"
-              className=" max-w-[200px] text-xl bg-blue-400 
+              className=" max-w-[200px] title bg-blue-400 
           rounded-3xl ml-10 my-auto flex justify-center items-center
          "
             >
@@ -46,7 +46,7 @@ export default function RootLayout({
                 Saiga-English
               </span>
             </Link>
-            <ul className="grid grid-cols-4  h-[70px] justify-items-center items-center text-2xl bg-yellow-300">
+            <ul className="grid grid-cols-4 subtitle  h-[70px] justify-items-center items-center bg-yellow-300">
               <Link href={"/"}>Главная</Link>
               <Link href={"/decks"}>Колоды</Link>
               <Link href={"/about"}>О нас</Link>
