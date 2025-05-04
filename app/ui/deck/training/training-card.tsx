@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card } from "../lib/definitions";
+import { Card } from "../../../lib/definitions";
 
 export default function TrainingCard({ cards }: { cards: Card[] }) {
   const [show, setShow] = useState<boolean>(false);

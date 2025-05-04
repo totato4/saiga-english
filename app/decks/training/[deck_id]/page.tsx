@@ -1,4 +1,4 @@
-import TrainingCard from "@/app/components/training-card";
+import TrainingCard from "@/app/ui/deck/training/training-card";
 import { getDeckById } from "@/app/lib/actions";
 import { getDeckCards } from "@/app/lib/data";
 

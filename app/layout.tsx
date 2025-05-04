@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 // import ThemeToggle from "./ui/ThemeToggle";
 import Link from "next/link";
-import ThemeProvider from "./components/theme-provider";
-import ThemeToggle from "./components/theme-toggle";
+import ThemeProvider from "./ui/theme/theme-provider";
+import ThemeToggle from "./ui/theme/theme-toggle";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -54,7 +54,13 @@ export default function RootLayout({
                 Мои результаты
               </Link>
             </ul>
-            <div className="w-[70px]">
+            <div className="flex flex-nowrap gap-x-[40px]">
+              <Link
+                className="flex justify-center items-center border-b-2 px-1 border-text dark:border-dark-text"
+                href={"sign-in"}
+              >
+                Войти
+              </Link>
               <ThemeToggle />
             </div>
           </header>
