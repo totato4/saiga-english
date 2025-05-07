@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default async function SignInForm() {
   return (
-    <form action={addNick}>
+    <form>
       <div className="flex flex-col justify-start items-end gap-y-[40px]">
         <label htmlFor="email">
           ваш E-Mail:{"  "} {}
