@@ -17,6 +17,14 @@ export interface Card {
   updated_at: Date;
 }
 
+export type User = {
+  id: string;
+  nick: string;
+  name: string;
+  email: string;
+  password: string;
+};
+
 // Параметры для функций
 export interface CreateDeckParams {
   title: string;

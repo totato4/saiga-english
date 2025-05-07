@@ -131,3 +131,18 @@ export async function authenticate(
     throw error;
   }
 }
+
+export async function addNick(deck_id: string): Promise<String> {
+  try {
+    const [deck] = await sql<Deck[]>`
+    ALTER TABLE users 
+    ADD COLUMN nick VARCHAR(50) UNIQUE;
+      
+    `;
+    console.log("СОЗДАНО");
+    return "создано";
+  } catch (error) {
+    console.error("Failed to delete card:", error);
+    throw new Error("Не удалось получить deck по id");
+  }
+}

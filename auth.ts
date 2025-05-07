@@ -5,6 +5,7 @@ import { z } from "zod";
 import type { User } from "@/app/lib/definitions";
 import bcrypt from "bcrypt";
 import postgres from "postgres";
+import Google from "next-auth/providers/google";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -19,7 +20,7 @@ async function getUser(email: string): Promise<User | undefined> {
 }
 // ... (функция getUser остается без изменений)
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
@@ -41,5 +42,6 @@ export const { auth, signIn, signOut } = NextAuth({
         return null;
       },
     }),
+    Google,
   ],
 });
